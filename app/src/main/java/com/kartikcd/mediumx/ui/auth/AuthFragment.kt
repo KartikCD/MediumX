@@ -6,27 +6,57 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.google.android.material.tabs.TabLayout
 import com.kartikcd.mediumx.R
+import com.kartikcd.mediumx.databinding.FragmentAuthBinding
 
 class AuthFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AuthFragment()
-    }
-
-    private lateinit var viewModel: AuthViewModel
+    private var _binding: FragmentAuthBinding? = null
+    private var navController: NavController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_auth, container, false)
+        _binding = FragmentAuthBinding.inflate(inflater, container, false)
+
+        return _binding?.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
-        // TODO: Use the ViewModel
+        navController = _binding?.let {
+            Navigation.findNavController(it.root.findViewById(R.id.authFragmentNavHost))
+        }
+
+        _binding?.authTabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab?.position) {
+                    0 -> {
+                        navController?.navigate(R.id.gotoLoginFragment)
+                    }
+                    1 -> {
+                        navController?.navigate(R.id.gotoSignUpFragment)
+                    }
+                }
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
