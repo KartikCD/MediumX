@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_feed"
+    app:startDestination="@id/globalFeedFragment">
+
+    <fragment
+        android:id="@+id/globalFeedFragment"
+        android:name="com.kartikcd.mediumx.ui.feed.GlobalFeedFragment"
+        android:label="fragment_global_feed"
+        tools:layout="@layout/fragment_global_feed" />
+    <fragment
+        android:id="@+id/localFeedFragment"
+        android:name="com.kartikcd.mediumx.ui.feed.LocalFeedFragment"
+        android:label="fragment_local_feed"
+        tools:layout="@layout/fragment_local_feed" />
+    <action
+        android:id="@+id/gotoGlobalFeedFragment"
+        app:destination="@id/globalFeedFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim" />
+    <action
+        android:id="@+id/gotoLocalFeedFragment"
+        app:destination="@id/localFeedFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim" />
+</navigation>

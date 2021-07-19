@@ -59,4 +59,6 @@ class AuthFragment : Fragment() {
         _binding = null
     }
 
+
+
 }
