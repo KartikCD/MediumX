@@ -5,56 +5,78 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kartikcd.mediumx.R
+import com.kartikcd.mediumx.databinding.FragmentGlobalFeedBinding
+import com.kartikcd.mediumx.domain.MediumXRepository
+import com.kartikcd.mediumx.util.Resource
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [GlobalFeedFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GlobalFeedFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentGlobalFeedBinding? = null
+    private lateinit var viewModel: FeedViewModel
+    private lateinit var feedListAdapter: FeedListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_global_feed, container, false)
+        _binding = FragmentGlobalFeedBinding.inflate(layoutInflater, container, false)
+        val factory = FeedViewModelFactory(requireActivity().application, MediumXRepository())
+
+        viewModel = ViewModelProvider(this, factory).get(FeedViewModel::class.java)
+        feedListAdapter = FeedListAdapter()
+        return _binding?.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GlobalFeedFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GlobalFeedFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+        fetchGlobalFeed()
+
+        feedListAdapter.setOnArticleClickListener {
+            println("Debug: ${it}")
+        }
+    }
+
+    private fun fetchGlobalFeed() {
+        viewModel.fetchGlobalFeed()
+        viewModel.globalFeed.observe({ lifecycle }) { response ->
+            when(response) {
+                is Resource.Success -> {
+                    _binding?.loadingImageView?.visibility = View.GONE
+                    _binding?.globalFeedRecyclerView?.visibility = View.VISIBLE
+                    response.data.let {
+                        feedListAdapter.differ.submitList(it?.articles?.toList())
+                    }
+                }
+                is Resource.Error -> {
+                    _binding?.loadingImageView?.visibility = View.GONE
+                    _binding?.globalFeedRecyclerView?.visibility = View.GONE
+                    response.message.let {
+                        Toast.makeText(activity, "An error occured: $it", Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resource.Loading -> {
+                    _binding?.loadingImageView?.visibility = View.VISIBLE
+                    _binding?.globalFeedRecyclerView?.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    private fun initRecyclerView() {
+        _binding?.globalFeedRecyclerView?.apply {
+            adapter = feedListAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -11,8 +11,11 @@ import com.bumptech.glide.Glide
 import com.kartikcd.api.models.entities.Article
 import com.kartikcd.mediumx.databinding.ListFeedLayoutBinding
 import com.kartikcd.mediumx.extensions.loadImage
+import com.kartikcd.mediumx.extensions.timeStamp
 
 class FeedListAdapter: RecyclerView.Adapter<FeedListAdapter.FeedViewHolder>() {
+
+    private var onArticleClickListener: ((Article) -> Unit) ?= null
 
     private val callback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
@@ -42,6 +45,10 @@ class FeedListAdapter: RecyclerView.Adapter<FeedListAdapter.FeedViewHolder>() {
         holder.bind(article)
     }
 
+    fun setOnArticleClickListener(listener: (Article) -> Unit) {
+        onArticleClickListener = listener
+    }
+
 
     inner class FeedViewHolder(
             val binding: ListFeedLayoutBinding
@@ -54,6 +61,13 @@ class FeedListAdapter: RecyclerView.Adapter<FeedListAdapter.FeedViewHolder>() {
                 binding.avatarImageView.loadImage(article.author.image, true)
             } else {
                 binding.avatarImageView.loadImage("https://static.productionready.io/images/smiley-cyrus.jpg", true)
+            }
+            binding.dateTextView.timeStamp = article.createdAt
+
+            binding.root.setOnClickListener {
+                onArticleClickListener?.let {
+                    it(article)
+                }
             }
         }
     }

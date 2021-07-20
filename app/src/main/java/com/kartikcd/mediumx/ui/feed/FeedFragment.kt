@@ -18,7 +18,6 @@ class FeedFragment : Fragment() {
 
     private var _binding: FragmentFeedBinding? = null
     private var navController: NavController? = null
-    lateinit var viewModel: FeedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

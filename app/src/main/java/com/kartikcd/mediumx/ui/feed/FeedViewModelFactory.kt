@@ -7,10 +7,12 @@ import com.kartikcd.mediumx.domain.MediumXRepository
 
 class FeedViewModelFactory(
     private val app: Application,
+    private val mediumXRepository: MediumXRepository
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return FeedViewModel(
-            app
+            app,
+            mediumXRepository
         ) as T
     }
 }

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="10dp"
-    android:outlineAmbientShadowColor="@color/black"
-    app:cardCornerRadius="8dp"
-    android:layout_margin="6dp"
-    android:outlineSpotShadowColor="@color/black">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="2dp">
+        android:layout_marginVertical="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +22,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="4dp"
-                android:src="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -86,4 +83,4 @@
 
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</RelativeLayout>
