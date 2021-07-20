@@ -12,11 +12,13 @@ import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.kartikcd.mediumx.R
 import com.kartikcd.mediumx.databinding.FragmentFeedBinding
+import com.kartikcd.mediumx.domain.MediumXRepository
 
 class FeedFragment : Fragment() {
 
     private var _binding: FragmentFeedBinding? = null
     private var navController: NavController? = null
+    lateinit var viewModel: FeedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

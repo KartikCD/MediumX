@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MediumXService {
-
     @GET("articles")
     suspend fun getArticles(): Response<ArticlesResponse>
 }
