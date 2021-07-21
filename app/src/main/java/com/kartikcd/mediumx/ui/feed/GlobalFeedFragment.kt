@@ -16,7 +16,7 @@ import com.kartikcd.mediumx.databinding.FragmentGlobalFeedBinding
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
 
-class GlobalFeedFragment : Fragment() {
+class   GlobalFeedFragment : Fragment() {
 
     private var _binding: FragmentGlobalFeedBinding? = null
     private lateinit var viewModel: FeedViewModel

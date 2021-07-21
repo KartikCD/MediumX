@@ -2,15 +2,19 @@ package com.kartikcd.mediumx.domain
 
 import com.kartikcd.api.MediumXClient
 import com.kartikcd.api.models.db.DBArticle
-import com.kartikcd.api.models.entities.Article
+import com.kartikcd.api.models.entities.LoginData
+import com.kartikcd.api.models.entities.SignupData
+import com.kartikcd.api.models.requests.SignupRequest
 import com.kartikcd.api.models.response.ArticlesResponse
+import com.kartikcd.api.models.response.UserResponse
 import com.kartikcd.mediumx.data.local.ArticleDAO
 import com.kartikcd.mediumx.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 class MediumXRepository {
 
-    private val publicApi = MediumXClient.publicApi;
+    private val publicApi = MediumXClient.PUBLIC_API;
+    private val authApi = MediumXClient.authApi
 
     suspend fun getArticles(): Resource<ArticlesResponse> {
         val articles = publicApi.getArticles()
@@ -32,5 +36,17 @@ class MediumXRepository {
 
     suspend fun deleteSavedArticle(dbArticle: DBArticle, articleDAO: ArticleDAO) {
         articleDAO.deleteArticle(dbArticle)
+    }
+
+    suspend fun registerUser(signupRequest: SignupRequest): Resource<UserResponse> {
+        val user = authApi.signupUser(signupRequest)
+        if (user.code() == 200) {
+            user.body()?.let {
+                return Resource.Success(it)
+            }
+        } else if (user.code() == 422) {
+            return Resource.Error("Username or Email address is already taken.")
+        }
+        return Resource.Error("Cannot send request. Server issue!")
     }
 }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primaryVariant"
-        app:title="Feed"
+        app:title="MediumX"
         app:titleTextColor="@color/white" />
 
     <fragment
