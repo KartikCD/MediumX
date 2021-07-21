@@ -1,13 +1,19 @@
-package com.kartikcd.api.models.entities
-
+package com.kartikcd.api.models.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.kartikcd.api.models.entities.Author
+import java.sql.RowId
 
-data class Article(
-    @SerializedName("author")
-    val author: Author,
+@Entity(
+    tableName = "articles"
+)
+data class DBArticle(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
+    @SerializedName("slug")
+    val slug: String,
     @SerializedName("body")
     val body: String,
     @SerializedName("createdAt")
@@ -18,12 +24,12 @@ data class Article(
     val favorited: Boolean,
     @SerializedName("favoritesCount")
     val favoritesCount: Int,
-    @SerializedName("slug")
-    val slug: String,
-    @SerializedName("tagList")
-    val tagList: List<String>,
     @SerializedName("title")
     val title: String,
     @SerializedName("updatedAt")
-    val updatedAt: String
+    val updatedAt: String,
+    @SerializedName("username")
+    val username: String,
+    @SerializedName("image")
+    val image: String
 )

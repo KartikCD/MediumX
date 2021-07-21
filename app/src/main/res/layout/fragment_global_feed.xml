@@ -5,12 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.feed.GlobalFeedFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pullToRefresh">
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:id="@+id/globalFeedRecyclerView"
         android:visibility="gone"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ImageView
         android:layout_width="match_parent"

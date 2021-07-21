@@ -1,3 +1,4 @@
+include ':localdatabase'
 include ':api'
 include ':app'
 rootProject.name = "MediumX"

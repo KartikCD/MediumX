@@ -6,10 +6,16 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.*
+import com.kartikcd.api.models.db.DBArticle
 import com.kartikcd.api.models.entities.Article
 import com.kartikcd.api.models.response.ArticlesResponse
+import com.kartikcd.mediumx.data.local.ArticleDAO
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -21,6 +27,10 @@ class FeedViewModel(
     private val _globalFeed = MutableLiveData<Resource<ArticlesResponse>>()
     val globalFeed: LiveData<Resource<ArticlesResponse>> = _globalFeed
 
+    private val _localFeed = MutableLiveData<List<DBArticle>>()
+    val localFeed: LiveData<List<DBArticle>> = _localFeed
+
+    // Fetching global feed from network
     fun fetchGlobalFeed() {
         viewModelScope.launch {
             _globalFeed.postValue(Resource.Loading())
@@ -34,6 +44,27 @@ class FeedViewModel(
             } catch (e: Exception) {
                 _globalFeed.postValue(Resource.Error(e.message.toString()))
             }
+        }
+    }
+
+    //Saving article to local database
+    fun saveArticle(dbArticle: DBArticle, articleDAO: ArticleDAO) {
+        viewModelScope.launch {
+            mediumXRepository.saveArticlesToLocalDatabase(dbArticle, articleDAO)
+        }
+    }
+
+    //fetching saved article from local database
+    fun fetchLocalFeed(articleDAO: ArticleDAO) =
+        liveData {
+            mediumXRepository.getSavedArticle(articleDAO).collect {
+                emit(it)
+            }
+        }
+
+    fun deleteSaveArticle(dbArticle: DBArticle, articleDAO: ArticleDAO) {
+        viewModelScope.launch {
+            mediumXRepository.deleteSavedArticle(dbArticle, articleDAO)
         }
     }
 
@@ -62,7 +93,6 @@ class FeedViewModel(
             }
         }
         return false
-
     }
 
 }

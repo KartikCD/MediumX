@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kartikcd.api.models.db.DBArticle
 import com.kartikcd.mediumx.R
+import com.kartikcd.mediumx.data.local.ArticleDAO
+import com.kartikcd.mediumx.data.local.MediumXLocalClient
 import com.kartikcd.mediumx.databinding.FragmentGlobalFeedBinding
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
@@ -18,6 +21,7 @@ class GlobalFeedFragment : Fragment() {
     private var _binding: FragmentGlobalFeedBinding? = null
     private lateinit var viewModel: FeedViewModel
     private lateinit var feedListAdapter: FeedListAdapter
+    private lateinit var articleDAO: ArticleDAO
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +33,9 @@ class GlobalFeedFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, factory).get(FeedViewModel::class.java)
         feedListAdapter = FeedListAdapter()
+
+        articleDAO = MediumXLocalClient().getDAO(requireActivity().application)
+
         return _binding?.root
     }
 
@@ -39,6 +46,25 @@ class GlobalFeedFragment : Fragment() {
 
         feedListAdapter.setOnArticleClickListener {
             println("Debug: ${it}")
+            val dbArticle = DBArticle(
+                null,
+                it.slug,
+                it.body,
+                it.createdAt,
+                it.description,
+                it.favorited,
+                it.favoritesCount,
+                it.title,
+                it.updatedAt,
+                it.author.username,
+                it.author.image)
+
+            viewModel.saveArticle(dbArticle, articleDAO)
+            Toast.makeText(activity, "Article saved successfully.", Toast.LENGTH_LONG).show()
+        }
+
+        _binding?.pullToRefresh?.setOnRefreshListener {
+            fetchGlobalFeed()
         }
     }
 
@@ -65,6 +91,7 @@ class GlobalFeedFragment : Fragment() {
                     _binding?.globalFeedRecyclerView?.visibility = View.GONE
                 }
             }
+            _binding?.pullToRefresh?.isRefreshing = false
         }
     }
 
