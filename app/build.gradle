@@ -17,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -70,6 +71,9 @@ dependencies {
 
     //SwipeRefreshLayout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_version"
+
+    // Awesome Validation
+    implementation 'com.basgeekball:awesome-validation:4.3'
 
     implementation project(":api")
 }
