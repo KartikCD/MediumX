@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.*
+import com.kartikcd.api.MediumXClient
 import com.kartikcd.api.models.entities.LoginData
 import com.kartikcd.api.models.entities.SignupData
 import com.kartikcd.api.models.requests.LoginRequest
@@ -29,6 +30,7 @@ class AuthViewModel(
     val logoutBool: LiveData<Boolean> = _logoutBool
 
     fun logout() {
+        MediumXClient.authToken = null
         _logoutBool.postValue(true)
     }
 

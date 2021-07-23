@@ -70,4 +70,16 @@ class MediumXRepository {
         MediumXClient.authToken = token
         return authApi.getCurrentUser()
     }
+
+    suspend fun getLoggedInUser(): Resource<UserResponse> {
+        val response = authApi.getCurrentUser()
+        if (response.code() == 200) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        } else {
+            return Resource.Error("Something went wrong.")
+        }
+        return Resource.Error("Something went wrong.")
+    }
 }

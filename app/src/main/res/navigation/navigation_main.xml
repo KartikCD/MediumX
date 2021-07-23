@@ -29,5 +29,16 @@
         app:enterAnim="@anim/nav_default_pop_enter_anim"
         app:exitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@id/navigation_main"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.kartikcd.mediumx.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <action
+        android:id="@+id/gotoProfileFragment2"
+        app:destination="@id/profileFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@id/navigation_main"/>
 
 </navigation>

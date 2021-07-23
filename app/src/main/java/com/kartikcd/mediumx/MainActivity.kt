@@ -138,9 +138,10 @@ class MainActivity : AppCompatActivity() {
             }
             MENU_PROFILE -> {
                 println("Debug: profile feed")
+                navController.navigate(R.id.gotoProfileFragment2)
             }
             MENU_LOGOUT -> {
-                println("Debug: profile feed")
+                println("Debug: logout")
                 authViewModel.logout()
                 navController.navigate(R.id.gotoFeedFragment)
             }
