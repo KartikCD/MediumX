@@ -19,10 +19,12 @@
         android:id="@+id/gotoGlobalFeedFragment"
         app:destination="@id/globalFeedFragment"
         app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:popUpTo="@navigation/navigation_feed"
         app:exitAnim="@anim/nav_default_pop_exit_anim" />
     <action
         android:id="@+id/gotoLocalFeedFragment"
         app:destination="@id/localFeedFragment"
+        app:popUpTo="@navigation/navigation_feed"
         app:enterAnim="@anim/nav_default_pop_enter_anim"
         app:exitAnim="@anim/nav_default_pop_exit_anim" />
 </navigation>

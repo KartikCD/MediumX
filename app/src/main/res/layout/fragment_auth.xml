@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_auth" />
+        app:navGraph="@navigation/navigation_auth"
+        android:layout_above="@id/authTabLayout"/>
     
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"

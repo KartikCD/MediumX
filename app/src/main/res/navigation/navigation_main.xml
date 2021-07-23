@@ -11,6 +11,12 @@
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
     </fragment>
+    <action
+        android:id="@+id/gotoAuthFragment"
+        app:destination="@id/authFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@id/navigation_main"/>
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.kartikcd.mediumx.ui.feed.FeedFragment"
@@ -18,14 +24,10 @@
         tools:layout="@layout/fragment_feed" >
     </fragment>
     <action
-        android:id="@+id/gotoAuthFragment"
-        app:destination="@id/authFragment"
-        app:enterAnim="@anim/nav_default_pop_enter_anim"
-        app:exitAnim="@anim/nav_default_pop_exit_anim" />
-    <action
         android:id="@+id/gotoFeedFragment"
         app:destination="@id/feedFragment"
         app:enterAnim="@anim/nav_default_pop_enter_anim"
-        app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@id/navigation_main"/>
 
 </navigation>

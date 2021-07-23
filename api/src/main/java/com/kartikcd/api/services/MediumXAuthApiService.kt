@@ -5,6 +5,7 @@ import com.kartikcd.api.models.requests.SignupRequest
 import com.kartikcd.api.models.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface MediumXAuthApiService {
@@ -15,4 +16,6 @@ interface MediumXAuthApiService {
     @POST("users/login")
     suspend fun loginUser(@Body loginRequest: LoginRequest): Response<UserResponse>
 
+    @GET("user")
+    suspend fun getCurrentUser(): Response<UserResponse>
 }

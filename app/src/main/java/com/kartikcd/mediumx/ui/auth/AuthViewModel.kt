@@ -6,11 +6,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.*
+import com.kartikcd.api.models.entities.LoginData
 import com.kartikcd.api.models.entities.SignupData
+import com.kartikcd.api.models.requests.LoginRequest
 import com.kartikcd.api.models.requests.SignupRequest
 import com.kartikcd.api.models.response.UserResponse
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -22,8 +25,15 @@ class AuthViewModel(
     private val _user = MutableLiveData<Resource<UserResponse>>()
     val user: LiveData<Resource<UserResponse>> = _user
 
+    private val _logoutBool = MutableLiveData<Boolean>()
+    val logoutBool: LiveData<Boolean> = _logoutBool
+
+    fun logout() {
+        _logoutBool.postValue(true)
+    }
+
     fun signup(email: String, password: String, username: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _user.postValue(Resource.Loading())
             try {
                 if (isNetworkAvailable(app)) {
@@ -40,6 +50,26 @@ class AuthViewModel(
             }
         }
     }
+
+    fun login(email: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _user.postValue(Resource.Loading())
+            try {
+                if (isNetworkAvailable(app)) {
+                    val userCreds = LoginData(email, password)
+                    mediumXRepository.loginUser(LoginRequest(userCreds)).let {
+                        _user.postValue(it)
+                    }
+                } else {
+                    _user.postValue(Resource.Error("Internet is not available."))
+                }
+            } catch (e: Exception) {
+                _user.postValue(Resource.Error(e.message.toString()))
+            }
+        }
+    }
+
+
 
     private fun isNetworkAvailable(context: Context?):Boolean{
         if (context == null) return false

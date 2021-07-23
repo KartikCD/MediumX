@@ -4,12 +4,14 @@ import com.kartikcd.api.MediumXClient
 import com.kartikcd.api.models.db.DBArticle
 import com.kartikcd.api.models.entities.LoginData
 import com.kartikcd.api.models.entities.SignupData
+import com.kartikcd.api.models.requests.LoginRequest
 import com.kartikcd.api.models.requests.SignupRequest
 import com.kartikcd.api.models.response.ArticlesResponse
 import com.kartikcd.api.models.response.UserResponse
 import com.kartikcd.mediumx.data.local.ArticleDAO
 import com.kartikcd.mediumx.util.Resource
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 class MediumXRepository {
 
@@ -42,11 +44,30 @@ class MediumXRepository {
         val user = authApi.signupUser(signupRequest)
         if (user.code() == 200) {
             user.body()?.let {
+                MediumXClient.authToken = it.user.token
                 return Resource.Success(it)
             }
         } else if (user.code() == 422) {
             return Resource.Error("Username or Email address is already taken.")
         }
         return Resource.Error("Cannot send request. Server issue!")
+    }
+
+    suspend fun loginUser(loginRequest: LoginRequest): Resource<UserResponse> {
+        val user = authApi.loginUser(loginRequest)
+        if (user.code() == 200) {
+            user.body()?.let {
+                MediumXClient.authToken = it.user.token
+                return Resource.Success(it)
+            }
+        } else if (user.code() == 422) {
+            return Resource.Error("Incorrect username or password.")
+        }
+        return Resource.Error("Cannot send request. Server issue!")
+    }
+
+    suspend fun getCurrentUser(token: String): Response<UserResponse> {
+        MediumXClient.authToken = token
+        return authApi.getCurrentUser()
     }
 }
