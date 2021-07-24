@@ -8,7 +8,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:id="@+id/profileRelativeLayout"
+        android:visibility="visible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,23 +31,30 @@
             android:src="@drawable/logo"
             android:id="@+id/avatarImageView"/>
 
-        <Button
-            android:id="@+id/changeAvatarButton"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/imageTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/avatarImageView"
-            android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
-            android:text="Change Profile Image" />
+            android:hint="Profile Image URL">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/imageEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTextInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/changeAvatarButton"
+            android:layout_below="@id/imageTextInputLayout"
             android:layout_margin="4dp"
             android:hint="Email">
 
@@ -83,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/usernameTextInputLayout"
             android:layout_margin="4dp"
-            android:hint="Bio">
+            android:hint="Write something about you">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/bioEditText"

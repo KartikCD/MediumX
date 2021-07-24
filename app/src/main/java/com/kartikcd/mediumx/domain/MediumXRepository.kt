@@ -6,6 +6,7 @@ import com.kartikcd.api.models.entities.LoginData
 import com.kartikcd.api.models.entities.SignupData
 import com.kartikcd.api.models.requests.LoginRequest
 import com.kartikcd.api.models.requests.SignupRequest
+import com.kartikcd.api.models.requests.UserRequest
 import com.kartikcd.api.models.response.ArticlesResponse
 import com.kartikcd.api.models.response.UserResponse
 import com.kartikcd.mediumx.data.local.ArticleDAO
@@ -73,6 +74,18 @@ class MediumXRepository {
 
     suspend fun getLoggedInUser(): Resource<UserResponse> {
         val response = authApi.getCurrentUser()
+        if (response.code() == 200) {
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        } else {
+            return Resource.Error("Something went wrong.")
+        }
+        return Resource.Error("Something went wrong.")
+    }
+
+    suspend fun updateUserData(userRequest: UserRequest): Resource<UserResponse> {
+        val response = authApi.updateUser(userRequest)
         if (response.code() == 200) {
             response.body()?.let {
                 return Resource.Success(it)

@@ -25,8 +25,8 @@ object MediumXClient {
     }
 
     val okhttpBuilder = OkHttpClient.Builder()
-        .readTimeout(5, TimeUnit.SECONDS)
-        .connectTimeout(2, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(5, TimeUnit.SECONDS)
 
     val retrofitBuilder = Retrofit.Builder().baseUrl("https://conduit.productionready.io/api/")
         .addConverterFactory(GsonConverterFactory.create())
