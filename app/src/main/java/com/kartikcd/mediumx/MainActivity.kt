@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         const val MENU_PROFILE = 3
         const val MENU_LOGOUT = 4
         const val MENU_CREATE_ARTILE = 5
-        const val MENU_MY_ARTICLES = 6
     }
 
     private var _binding: ActivityMainBinding? = null
@@ -109,7 +108,6 @@ class MainActivity : AppCompatActivity() {
                 menu?.add(0, MENU_FEED, Menu.NONE, "Feed")
                 menu?.add(0, MENU_PROFILE, Menu.NONE, "Profile")
                 menu?.add(0, MENU_CREATE_ARTILE, Menu.NONE, "Create Article")
-                menu?.add(0, MENU_MY_ARTICLES, Menu.NONE, "My Articles")
                 menu?.add(0, MENU_ABOUTUS, Menu.NONE, "About Us")
                 menu?.add(0, MENU_LOGOUT, Menu.NONE, "Logout")
             }
@@ -150,9 +148,6 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.gotoFeedFragment)
             }
             MENU_CREATE_ARTILE -> {
-
-            }
-            MENU_MY_ARTICLES -> {
 
             }
         }
