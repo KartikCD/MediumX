@@ -40,5 +40,27 @@
         app:enterAnim="@anim/nav_default_pop_enter_anim"
         app:exitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@id/navigation_main"/>
+    <fragment
+        android:id="@+id/myArticlesFragment"
+        android:name="com.kartikcd.mediumx.ui.articles.MyArticlesFragment"
+        android:label="fragment_my_articles"
+        tools:layout="@layout/fragment_my_articles" />
+    <fragment
+        android:id="@+id/createArticleFragment"
+        android:name="com.kartikcd.mediumx.ui.articles.CreateArticleFragment"
+        android:label="fragment_create_article"
+        tools:layout="@layout/fragment_create_article" />
+    <action
+        android:id="@+id/gotoCreateArticle"
+        app:destination="@id/createArticleFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@id/navigation_main"/>
+    <action
+        android:id="@+id/gotoMyArticles"
+        app:destination="@id/myArticlesFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@animator/nav_default_pop_enter_anim"
+        app:popUpTo="@id/navigation_main"/>
 
 </navigation>
