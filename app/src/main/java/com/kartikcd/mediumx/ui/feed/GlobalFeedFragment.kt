@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kartikcd.api.models.db.DBArticle
 import com.kartikcd.mediumx.R
@@ -15,6 +16,8 @@ import com.kartikcd.mediumx.data.local.MediumXLocalClient
 import com.kartikcd.mediumx.databinding.FragmentGlobalFeedBinding
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class   GlobalFeedFragment : Fragment() {
 
@@ -29,7 +32,8 @@ class   GlobalFeedFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentGlobalFeedBinding.inflate(layoutInflater, container, false)
-        val factory = FeedViewModelFactory(requireActivity().application, MediumXRepository())
+        val mediumXRepository = MediumXRepository()
+        val factory = FeedViewModelFactory(requireActivity().application, mediumXRepository, PagingRepository(mediumXRepository))
 
         viewModel = ViewModelProvider(this, factory).get(FeedViewModel::class.java)
         feedListAdapter = FeedListAdapter()
@@ -42,7 +46,7 @@ class   GlobalFeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        fetchGlobalFeed()
+        fetchFeedWithPaging()
 
         feedListAdapter.setOnArticleClickListener {
             println("Debug: ${it}")
@@ -64,7 +68,18 @@ class   GlobalFeedFragment : Fragment() {
         }
 
         _binding?.pullToRefresh?.setOnRefreshListener {
-            fetchGlobalFeed()
+            fetchFeedWithPaging()
+        }
+    }
+
+    private fun fetchFeedWithPaging() {
+        lifecycleScope.launch {
+            viewModel.getArticleList().collect {
+                it.let {
+                    feedListAdapter.submitData(it)
+                    _binding?.pullToRefresh?.isRefreshing = false
+                }
+            }
         }
     }
 
@@ -76,7 +91,7 @@ class   GlobalFeedFragment : Fragment() {
                     _binding?.loadingImageView?.visibility = View.GONE
                     _binding?.globalFeedRecyclerView?.visibility = View.VISIBLE
                     response.data.let {
-                        feedListAdapter.differ.submitList(it?.articles?.toList())
+
                     }
                 }
                 is Resource.Error -> {
@@ -99,6 +114,7 @@ class   GlobalFeedFragment : Fragment() {
         _binding?.globalFeedRecyclerView?.apply {
             adapter = feedListAdapter
             layoutManager = LinearLayoutManager(activity)
+            feedListAdapter.notifyDataSetChanged()
         }
     }
 

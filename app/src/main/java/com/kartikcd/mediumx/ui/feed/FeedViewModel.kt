@@ -6,22 +6,22 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.kartikcd.api.models.db.DBArticle
 import com.kartikcd.api.models.entities.Article
 import com.kartikcd.api.models.response.ArticlesResponse
 import com.kartikcd.mediumx.data.local.ArticleDAO
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class FeedViewModel(
     private val app: Application,
-    private val mediumXRepository: MediumXRepository
+    private val mediumXRepository: MediumXRepository,
+    private val pagingRepository: PagingRepository
 ) : AndroidViewModel(app) {
 
     private val _globalFeed = MutableLiveData<Resource<ArticlesResponse>>()
@@ -29,6 +29,8 @@ class FeedViewModel(
 
     private val _localFeed = MutableLiveData<List<DBArticle>>()
     val localFeed: LiveData<List<DBArticle>> = _localFeed
+
+    private var globalFeedResult: Flow<PagingData<Article>>? = null
 
     // Fetching global feed from network
     fun fetchGlobalFeed() {
@@ -45,6 +47,17 @@ class FeedViewModel(
                 _globalFeed.postValue(Resource.Error(e.message.toString()))
             }
         }
+    }
+
+    fun getArticleList(): Flow<PagingData<Article>> {
+        val lastResult = globalFeedResult
+        if (lastResult != null) {
+            return lastResult
+        }
+
+        val newResult: Flow<PagingData<Article>> = pagingRepository.getArticleStream().cachedIn(viewModelScope)
+        globalFeedResult = newResult
+        return newResult
     }
 
     //Saving article to local database

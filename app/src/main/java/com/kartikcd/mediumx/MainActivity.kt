@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.gotoFeedFragment)
             }
             MENU_CREATE_ARTILE -> {
-
+                navController.navigate(R.id.gotoCreateArticle)
             }
         }
         return true

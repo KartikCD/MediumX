@@ -1,55 +1,40 @@
-package com.kartikcd.mediumx.ui.profile
+package com.kartikcd.mediumx.ui.articles
 
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.lifecycle.*
-import com.kartikcd.api.models.entities.Update
-import com.kartikcd.api.models.entities.User
-import com.kartikcd.api.models.requests.UserRequest
-import com.kartikcd.api.models.response.UserResponse
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.kartikcd.api.models.requests.ArticleRequest
+import com.kartikcd.api.models.response.ArticleResponse
 import com.kartikcd.mediumx.domain.MediumXRepository
 import com.kartikcd.mediumx.util.Resource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class ProfileViewModel(
+class ArticleViewModel(
     private val app: Application,
     private val mediumXRepository: MediumXRepository
-) : AndroidViewModel(app) {
+): AndroidViewModel(app) {
 
-    private val _user = MutableLiveData<Resource<UserResponse>>()
-    val user: LiveData<Resource<UserResponse>> = _user
+    private val _article = MutableLiveData<Resource<ArticleResponse>>()
+    val article: LiveData<Resource<ArticleResponse>> = _article
 
-    fun getCurrentUser() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _user.postValue(Resource.Loading())
+    fun addArticle(articleRequest: ArticleRequest) {
+        viewModelScope.launch {
+            _article.postValue(Resource.Loading())
             try {
-                if (isNetworkAvailable(app)) {
-                    mediumXRepository.getLoggedInUser().let {
-                        _user.postValue(it)
-                    }
+                if(isNetworkAvailable(app)) {
+                    _article.postValue(mediumXRepository.createArticle(articleRequest))
                 } else {
-                    _user.postValue(Resource.Error("Internet is not available."))
+                    _article.postValue(Resource.Error("Internet is not available."))
                 }
             } catch (e: Exception) {
-                _user.postValue(Resource.Error(e.message.toString()))
-            }
-        }
-    }
-
-    fun updateUser(update: Update) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val userRequest = UserRequest(update)
-                val user = mediumXRepository.updateUserData(userRequest)
-                println("Debug: ${user}")
-                _user.postValue(user)
-            } catch (e: Exception) {
-                println("Debug: ${e.message.toString()}")
+                _article.postValue(Resource.Error(e.message.toString()))
             }
         }
     }
@@ -80,5 +65,4 @@ class ProfileViewModel(
         }
         return false
     }
-
 }

@@ -4,6 +4,8 @@ import android.text.Layout
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,21 +15,21 @@ import com.kartikcd.mediumx.databinding.ListFeedLayoutBinding
 import com.kartikcd.mediumx.extensions.loadImage
 import com.kartikcd.mediumx.extensions.timeStamp
 
-class FeedListAdapter: RecyclerView.Adapter<FeedListAdapter.FeedViewHolder>() {
+class FeedListAdapter: PagingDataAdapter<Article, FeedListAdapter.FeedViewHolder>(callback) {
 
     private var onArticleClickListener: ((Article) -> Unit) ?= null
 
-    private val callback = object : DiffUtil.ItemCallback<Article>() {
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.slug == newItem.slug
-        }
+    companion object {
+        private val callback = object : DiffUtil.ItemCallback<Article>() {
+            override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+                return oldItem.slug == newItem.slug
+            }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+                return oldItem == newItem
+            }
         }
     }
-
-    val differ = AsyncListDiffer(this, callback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val binding = ListFeedLayoutBinding
@@ -36,13 +38,10 @@ class FeedListAdapter: RecyclerView.Adapter<FeedListAdapter.FeedViewHolder>() {
         return FeedViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        val article = differ.currentList[position]
-        holder.bind(article)
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
     fun setOnArticleClickListener(listener: (Article) -> Unit) {

@@ -30,7 +30,7 @@ class LocalFeedFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding =  FragmentLocalFeedBinding.inflate(layoutInflater, container, false)
-        val factory = FeedViewModelFactory(requireActivity().application, MediumXRepository())
+        val factory = FeedViewModelFactory(requireActivity().application, MediumXRepository(), PagingRepository(MediumXRepository()))
 
 
         viewModel = ViewModelProvider(this, factory).get(FeedViewModel::class.java)

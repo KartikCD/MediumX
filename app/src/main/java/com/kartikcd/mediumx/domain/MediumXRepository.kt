@@ -2,11 +2,11 @@ package com.kartikcd.mediumx.domain
 
 import com.kartikcd.api.MediumXClient
 import com.kartikcd.api.models.db.DBArticle
-import com.kartikcd.api.models.entities.LoginData
-import com.kartikcd.api.models.entities.SignupData
+import com.kartikcd.api.models.requests.ArticleRequest
 import com.kartikcd.api.models.requests.LoginRequest
 import com.kartikcd.api.models.requests.SignupRequest
 import com.kartikcd.api.models.requests.UserRequest
+import com.kartikcd.api.models.response.ArticleResponse
 import com.kartikcd.api.models.response.ArticlesResponse
 import com.kartikcd.api.models.response.UserResponse
 import com.kartikcd.mediumx.data.local.ArticleDAO
@@ -54,6 +54,18 @@ class MediumXRepository {
         return Resource.Error("Cannot send request. Server issue!")
     }
 
+    suspend fun createArticle(articleRequest: ArticleRequest): Resource<ArticleResponse> {
+        val article = authApi.createArticle(articleRequest)
+        if (article.code() == 200) {
+            article.body()?.let {
+                return Resource.Success(it)
+            }
+        } else {
+            return Resource.Error("Something went wrong.")
+        }
+        return Resource.Error("Something went wrong.")
+    }
+
     suspend fun loginUser(loginRequest: LoginRequest): Resource<UserResponse> {
         val user = authApi.loginUser(loginRequest)
         if (user.code() == 200) {
@@ -92,6 +104,16 @@ class MediumXRepository {
             }
         } else {
             return Resource.Error("Something went wrong.")
+        }
+        return Resource.Error("Something went wrong.")
+    }
+
+    suspend fun getArticles(limit: Int, offset: Int): Resource<ArticlesResponse> {
+        val articles = publicApi.getArticles(limit, offset)
+        if (articles.isSuccessful) {
+            articles.body()?.let {
+                return Resource.Success(it)
+            }
         }
         return Resource.Error("Something went wrong.")
     }
