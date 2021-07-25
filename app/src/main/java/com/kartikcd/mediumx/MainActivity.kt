@@ -137,6 +137,7 @@ class MainActivity : AppCompatActivity() {
             }
             MENU_ABOUTUS -> {
                 println("Debug: about feed")
+                navController.navigate(R.id.gotoAboutUs)
             }
             MENU_PROFILE -> {
                 println("Debug: profile feed")

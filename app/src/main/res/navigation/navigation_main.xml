@@ -51,5 +51,16 @@
         app:enterAnim="@anim/nav_default_pop_enter_anim"
         app:exitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@id/navigation_main"/>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.kartikcd.mediumx.ui.profile.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <action
+        android:id="@+id/gotoAboutUs"
+        app:destination="@id/aboutUsFragment"
+        app:enterAnim="@anim/nav_default_pop_enter_anim"
+        app:exitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@id/navigation_main"/>
 
 </navigation>
