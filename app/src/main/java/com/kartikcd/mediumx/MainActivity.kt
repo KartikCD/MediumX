@@ -146,7 +146,6 @@ class MainActivity : AppCompatActivity() {
             MENU_LOGOUT -> {
                 println("Debug: logout")
                 authViewModel.logout()
-                navController.navigate(R.id.gotoFeedFragment)
             }
             MENU_CREATE_ARTILE -> {
                 navController.navigate(R.id.gotoCreateArticle)
