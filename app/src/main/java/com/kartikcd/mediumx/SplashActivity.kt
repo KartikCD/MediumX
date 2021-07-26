@@ -1,25 +1,30 @@
 package com.kartikcd.mediumx
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 
 class SplashActivity : AppCompatActivity() {
-
-    companion object {
-        const val PREFS_TOKEN = "prefs_mediumx"
-        const val token = "token"
-    }
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        val imageView = findViewById(R.id.splashImageView) as ImageView
+        val animation = AnimationUtils.loadAnimation(this, R.anim.side_slide)
+        imageView.startAnimation(animation)
+        val callback = Runnable {
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+        }
 
-        sharedPreferences = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE)
+        Handler().postDelayed(callback, 1500)
+    }
 
-
-
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

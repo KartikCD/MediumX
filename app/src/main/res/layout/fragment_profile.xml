@@ -8,115 +8,120 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/profileRelativeLayout"
-        android:visibility="visible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/profileTextView"
-            android:text="Profile"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"/>
-
-        <ImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_below="@id/profileTextView"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/logo"
-            android:id="@+id/avatarImageView"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/imageTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/avatarImageView"
-            android:layout_margin="4dp"
-            android:hint="Profile Image URL">
+            android:layout_height="match_parent"
+            android:id="@+id/profileRelativeLayout"
+            android:visibility="visible">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/imageEditText"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileTextView"
+                android:text="Profile"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"/>
+
+            <ImageView
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_below="@id/profileTextView"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/logo"
+                android:visibility="gone"
+                android:id="@+id/avatarImageView"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/imageTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@id/avatarImageView"
+                android:layout_margin="4dp"
+                android:hint="Profile Image URL">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageTextInputLayout"
-            android:layout_margin="4dp"
-            android:hint="Email">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/imageEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@id/imageTextInputLayout"
+                android:layout_margin="4dp"
+                android:hint="Email">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/usernameTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/emailTextInputLayout"
-            android:layout_margin="4dp"
-            android:hint="Username">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/usernameEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/usernameTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@id/emailTextInputLayout"
+                android:layout_margin="4dp"
+                android:hint="Username">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/bioTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usernameTextInputLayout"
-            android:layout_margin="4dp"
-            android:hint="Write something about you">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/usernameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/bioEditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/bioTextInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:lines="5"
-                android:gravity="top|left"
-                android:justificationMode="inter_word"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@id/usernameTextInputLayout"
+                android:layout_margin="4dp"
+                android:hint="Write something about you">
 
-        <Button
-            android:id="@+id/updateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bioTextInputLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="4dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
-            android:text="Update User" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/bioEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:lines="5"
+                    android:gravity="top|left"
+                    android:justificationMode="inter_word"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/updateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bioTextInputLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="4dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:text="Update User" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
