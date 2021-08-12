@@ -1,8 +1,10 @@
 # MediumX - Android App
+
 [<p align="center">
 <img alt="MediumX logo"
         height="160"
-        src="./readme/logo.png">](./readme/logo.png)  
+        src="./readme/logo.png">](./readme/logo.png)
+
 </p>
 
 ## About
@@ -15,7 +17,10 @@ I would like to thanks [INsanityDesign.com](https://insanitydesign.com/) for [Re
 
 ### [Video Demo](https://youtu.be/hhR3xYOEwWg)
 
+### [Profile](https://github.com/KartikCD)
+
 ## Libraries Used
+
 - Retrofit
 - Jetpack Navigation
 - Paging 3
@@ -26,28 +31,29 @@ I would like to thanks [INsanityDesign.com](https://insanitydesign.com/) for [Re
 - Glide
 
 ## Screenshots
+
 - Splash Screen <br>
-[<img src="./readme/splash.png" width="200" hspace="10" vspace="10">](./readme/splash.png)
+  [<img src="./readme/splash.png" width="200" hspace="10" vspace="10">](./readme/splash.png)
 
 - Auth Screen - User can login to already existing account or register a new account <br>
-[<img src="./readme/login.png" width="200" hspace="10" align="left" vspace="10">](./readme/login.png)
-[<img src="./readme/register.png" width="200" hspace="10" align="center" vspace="10">](./readme/register.png)
+  [<img src="./readme/login.png" width="200" hspace="10" align="left" vspace="10">](./readme/login.png)
+  [<img src="./readme/register.png" width="200" hspace="10" align="center" vspace="10">](./readme/register.png)
 
 - Feed Screen - User can view Global Feed (i.e. all online uploaded articles) and can store articles to local storage.<br>
-[<img src="./readme/globalfeed.png" width="200" hspace="10" align="left" vspace="10">](./readme/globalfeed.png)
-[<img src="./readme/localfeed.png" width="200" hspace="10" align="center" vspace="10">](./readme/localfeed.png)
+  [<img src="./readme/globalfeed.png" width="200" hspace="10" align="left" vspace="10">](./readme/globalfeed.png)
+  [<img src="./readme/localfeed.png" width="200" hspace="10" align="center" vspace="10">](./readme/localfeed.png)
 
 - Profile Screen - Already logged in user's can update their profile details.<br>
-[<img src="./readme/profile.png" width="200" hspace="10" vspace="10">](./readme/profile.png)
+  [<img src="./readme/profile.png" width="200" hspace="10" vspace="10">](./readme/profile.png)
 
 - Create Article Screen - Logged in user's can write their own articles.<br>
-[<img src="./readme/bio.png" width="200" hspace="10" vspace="10">](./readme/bio.png)
+  [<img src="./readme/bio.png" width="200" hspace="10" vspace="10">](./readme/bio.png)
 
 - About Us Screen - Details of app is displayed here.<br>
-[<img src="./readme/aboutus.png" width="200" hspace="10" vspace="10">](./readme/aboutus.png)
+  [<img src="./readme/aboutus.png" width="200" hspace="10" vspace="10">](./readme/aboutus.png)
 
 - Logout Navigation - Profile and Create Article options are displayed when user is logged in. Else only Login/Signup option is displayed. <br>
-[<img src="./readme/navigation.png" width="200" hspace="10" vspace="10">](./readme/navigation.png)
+  [<img src="./readme/navigation.png" width="200" hspace="10" vspace="10">](./readme/navigation.png)
 
 ## Permissions
 

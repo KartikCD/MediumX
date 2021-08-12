@@ -17,7 +17,7 @@ import com.kartikcd.mediumx.data.local.MediumXLocalClient
 import com.kartikcd.mediumx.databinding.FragmentLocalFeedBinding
 import com.kartikcd.mediumx.domain.MediumXRepository
 
-class LocalFeedFragment : Fragment() {
+class   LocalFeedFragment : Fragment() {
 
     private var _binding: FragmentLocalFeedBinding? = null
     private lateinit var viewModel: FeedViewModel

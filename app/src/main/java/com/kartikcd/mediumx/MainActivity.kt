@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class ?MainActivity : AppCompatActivity() {
 
     companion object {
         const val PREFS_NAME = "prefs_mediumx"
